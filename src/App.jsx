@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Fingerprint, Activity, Clock, ShieldCheck, Check, Zap } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +33,7 @@ const Navbar = () => {
         <a href="#features" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>System</a>
         <a href="#philosophy" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Philosophy</a>
         <a href="#protocol" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Protocol</a>
+        <Link to="/prototype-01" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Prototype 01</Link>
       </div>
       <button onClick={() => navigate('/signup')} className={`btn-magnetic px-6 py-2.5 font-sans font-semibold text-sm rounded-full ${scrolled ? 'bg-accent text-background shadow-[0_0_20px_rgba(224,33,138,0.2)]' : 'bg-background text-primary'
         }`}>
@@ -136,7 +137,7 @@ const ShufflerCard = () => {
   }, []);
 
   return (
-    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/5 flex flex-col justify-between overflow-hidden relative group">
+    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between overflow-hidden relative group">
       <div>
         <h3 className="font-sans font-semibold tracking-tight text-3xl text-primary mb-4">Customizable Adhesion</h3>
         <p className="text-primary/60 font-sans text-lg leading-relaxed">Innovative glue options that let you adjust the hold based on your schedule.</p>
@@ -208,7 +209,7 @@ const TypewriterCard = () => {
   };
 
   return (
-    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/5 flex flex-col justify-between">
+    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between">
       <div>
         <h3 className="font-sans font-semibold tracking-tight text-3xl text-primary mb-4">Health-First Materials</h3>
         <p className="text-primary/60 font-sans text-lg leading-relaxed">Protect your natural nails, prevent trapped moisture, and let your nail bed breathe.</p>
@@ -258,7 +259,7 @@ const SchedulerCard = () => {
   }, []);
 
   return (
-    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/5 flex flex-col justify-between" ref={svgRef}>
+    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between" ref={svgRef}>
       <div>
         <h3 className="font-sans font-semibold tracking-tight text-3xl text-primary mb-4">"No-Pop-Off" Warranty</h3>
         <p className="text-primary/60 font-sans text-lg leading-relaxed">Total peace of mind. Cure the social anxiety of random detached nails.</p>
@@ -583,7 +584,7 @@ const IntegrationShowcase = () => {
 const ArchiveCard = ({ step, title, desc, icon: Icon, image, isActive, isPast }) => {
   return (
     <div
-      className={`protocol-card sticky top-32 w-full max-w-6xl mx-auto h-[80vh] rounded-[4rem] p-16 lg:p-24 flex flex-col justify-between border border-primary/5 shadow-2xl transition-all duration-[800ms] overflow-hidden ${isPast ? 'scale-[0.96] opacity-40 blur-sm bg-background/50' : 'scale-100 opacity-100 bg-background'
+      className={`protocol-card sticky top-32 w-full max-w-6xl mx-auto h-[80vh] rounded-[4rem] p-16 lg:p-24 flex flex-col justify-between shadow-2xl transition-all duration-[800ms] overflow-hidden ${step === '01' ? 'border border-primary/5' : 'border border-primary/20'} ${isPast ? 'scale-[0.96] opacity-40 blur-sm bg-background/50' : 'scale-100 opacity-100 bg-background'
         }`}
       style={{ zIndex: parseInt(step) }}
     >
