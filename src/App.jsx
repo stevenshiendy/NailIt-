@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Fingerprint, Activity, Clock, ShieldCheck, Check, Zap } from 'lucide-react';
+import { ArrowRight, Fingerprint, Activity, Clock, ShieldCheck, Check, Zap, Menu, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Navbar = () => {
   const navRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,25 +22,57 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      ref={navRef}
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-8 py-3 rounded-full transition-all duration-500 max-w-5xl w-[90%] border ${scrolled
-        ? 'bg-background border-background/20 text-primary shadow-[0_8px_30px_rgb(0,0,0,0.05)]'
-        : 'bg-background/10 backdrop-blur-md border-white/10 text-background'
-        }`}
-    >
-      <div className="font-sans font-bold tracking-tight text-xl">Nail It!</div>
-      <div className="hidden md:flex items-center gap-12 font-sans text-sm tracking-wide">
-        <a href="#features" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>System</a>
-        <a href="#philosophy" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Philosophy</a>
-        <a href="#protocol" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Protocol</a>
-        <Link to="/prototype-01" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Prototype 01</Link>
+    <>
+      <nav
+        ref={navRef}
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 md:px-8 py-3 rounded-full transition-all duration-500 max-w-5xl w-[93%] md:w-[90%] border ${scrolled
+          ? 'bg-background border-background/20 text-primary shadow-[0_8px_30px_rgb(0,0,0,0.05)]'
+          : 'bg-background/10 backdrop-blur-md border-white/10 text-background'
+          }`}
+      >
+        <div className="font-sans font-bold tracking-tight text-xl">Nail It!</div>
+        <div className="hidden md:flex items-center gap-12 font-sans text-sm tracking-wide">
+          <a href="#features" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>System</a>
+          <a href="#philosophy" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Philosophy</a>
+          <a href="#protocol" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Protocol</a>
+          <Link to="/prototype-01" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Prototype 01</Link>
+        </div>
+
+        {/* Mobile Hamburger — center */}
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden p-1 order-2"
+          aria-label="Toggle menu"
+        >
+          {mobileOpen
+            ? <X className="w-6 h-6" />
+            : <Menu className="w-6 h-6" />
+          }
+        </button>
+
+        {/* Sign Up — always visible, right side */}
+        <button onClick={() => navigate('/signup')} className={`btn-magnetic px-5 py-2 md:px-6 md:py-2.5 font-sans font-semibold text-xs md:text-sm rounded-full order-3 ${scrolled ? 'bg-accent text-background shadow-[0_0_20px_rgba(224,33,138,0.2)]' : 'bg-background text-primary'
+          }`}>
+          <span className="relative z-10">Sign Up</span>
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 z-40 bg-dark/80 backdrop-blur-md transition-opacity duration-300 md:hidden ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setMobileOpen(false)}>
+        <div
+          className={`absolute top-20 left-1/2 -translate-x-1/2 w-[90%] bg-background rounded-3xl p-8 flex flex-col gap-6 shadow-2xl border border-primary/10 transition-all duration-300 ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <a href="#features" onClick={() => setMobileOpen(false)} className="font-sans text-lg text-primary/80 hover:text-accent transition-colors py-2 border-b border-primary/5">System</a>
+          <a href="#philosophy" onClick={() => setMobileOpen(false)} className="font-sans text-lg text-primary/80 hover:text-accent transition-colors py-2 border-b border-primary/5">Philosophy</a>
+          <a href="#protocol" onClick={() => setMobileOpen(false)} className="font-sans text-lg text-primary/80 hover:text-accent transition-colors py-2 border-b border-primary/5">Protocol</a>
+          <Link to="/prototype-01" onClick={() => setMobileOpen(false)} className="font-sans text-lg text-primary/80 hover:text-accent transition-colors py-2 border-b border-primary/5">Prototype 01</Link>
+          <button onClick={() => { navigate('/signup'); setMobileOpen(false); }} className="btn-magnetic bg-accent text-background px-6 py-4 font-sans font-semibold text-base rounded-2xl mt-2 shadow-[0_0_20px_rgba(224,33,138,0.2)]">
+            <span className="relative z-10">Sign Up</span>
+          </button>
+        </div>
       </div>
-      <button onClick={() => navigate('/signup')} className={`btn-magnetic px-6 py-2.5 font-sans font-semibold text-sm rounded-full ${scrolled ? 'bg-accent text-background shadow-[0_0_20px_rgba(224,33,138,0.2)]' : 'bg-background text-primary'
-        }`}>
-        <span className="relative z-10">Sign Up</span>
-      </button>
-    </nav>
+    </>
   );
 };
 
@@ -91,19 +124,19 @@ const Hero = () => {
       <div className="relative z-10 h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-center translate-y-8">
         <div ref={textRef} className="max-w-4xl text-background">
 
-          <h1 className="hero-elem font-sans font-bold text-6xl md:text-8xl lg:text-[10rem] leading-[1] tracking-tighter mb-4">
+          <h1 className="hero-elem font-sans font-bold text-5xl md:text-8xl lg:text-[10rem] leading-[1] tracking-tighter mb-4">
             Nail It!
           </h1>
-          <h1 className="hero-elem font-sans font-light tracking-tight text-4xl md:text-6xl lg:text-[4rem] leading-[1.1] text-background/90 mb-12">
+          <h1 className="hero-elem font-sans font-light tracking-tight text-2xl md:text-6xl lg:text-[4rem] leading-[1.1] text-background/90 mb-8 md:mb-12">
             Nail the look. Protect your health.
           </h1>
-          <p className="hero-elem font-sans text-xl md:text-2xl font-light text-background/70 max-w-2xl mb-16 leading-relaxed">
+          <p className="hero-elem font-sans text-base md:text-2xl font-light text-background/70 max-w-2xl mb-10 md:mb-16 leading-relaxed">
             Delivering premium, salon-quality aesthetics with "sticker-like flexibility" that keeps your natural nails healthy and perfectly adapts to your dynamic lifestyle.
           </p>
           <div className="hero-elem">
             <button
               onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
-              className="btn-magnetic bg-accent text-background px-10 py-5 text-lg font-semibold flex items-center gap-4 group rounded-full shadow-[0_0_40px_rgba(224,33,138,0.3)]"
+              className="btn-magnetic bg-accent text-background px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-semibold flex items-center gap-3 md:gap-4 group rounded-full shadow-[0_0_40px_rgba(224,33,138,0.3)]"
             >
               <span className="relative z-10">Claim Exclusive Access</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -137,7 +170,7 @@ const ShufflerCard = () => {
   }, []);
 
   return (
-    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between overflow-hidden relative group">
+    <div className="bg-background rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14 min-h-[400px] md:h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between overflow-hidden relative group">
       <div>
         <h3 className="font-sans font-semibold tracking-tight text-3xl text-primary mb-4">Customizable Adhesion</h3>
         <p className="text-primary/60 font-sans text-lg leading-relaxed">Innovative glue options that let you adjust the hold based on your schedule.</p>
@@ -209,7 +242,7 @@ const TypewriterCard = () => {
   };
 
   return (
-    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between">
+    <div className="bg-background rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14 min-h-[400px] md:h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between">
       <div>
         <h3 className="font-sans font-semibold tracking-tight text-3xl text-primary mb-4">Health-First Materials</h3>
         <p className="text-primary/60 font-sans text-lg leading-relaxed">Protect your natural nails, prevent trapped moisture, and let your nail bed breathe.</p>
@@ -259,7 +292,7 @@ const SchedulerCard = () => {
   }, []);
 
   return (
-    <div className="bg-background rounded-[3rem] p-10 lg:p-14 h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between" ref={svgRef}>
+    <div className="bg-background rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14 min-h-[400px] md:h-[500px] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-primary/20 flex flex-col justify-between" ref={svgRef}>
       <div>
         <h3 className="font-sans font-semibold tracking-tight text-3xl text-primary mb-4">"No-Pop-Off" Warranty</h3>
         <p className="text-primary/60 font-sans text-lg leading-relaxed">Total peace of mind. Cure the social anxiety of random detached nails.</p>
@@ -409,11 +442,12 @@ const NailShowcase = () => {
   const [current, setCurrent] = useState(0);
 
   const styles = [
-    { image: '/design-1.jpg' },
-    { image: '/design-2.jpg' },
-    { image: '/design-3.jpg' },
-    { image: '/design-4.jpg' },
-    { image: '/design-5.jpg' }
+    { image: '/Design01.jpg' },
+    { image: '/Design02.jpg' },
+    { image: '/Design03.jpg' },
+    { image: '/Design04.jpg' },
+    { image: '/Design05.jpg' },
+    { image: '/Design06.jpg' }
   ];
 
   useEffect(() => {
@@ -424,16 +458,16 @@ const NailShowcase = () => {
   }, [styles.length]);
 
   return (
-    <div className="absolute top-6 right-6 bottom-6 w-1/2 rounded-[3rem] overflow-hidden hidden md:flex flex-col bg-dark border border-dark/10 group">
+    <div className="relative md:absolute md:top-6 md:right-6 md:bottom-6 w-full md:w-1/2 h-64 md:h-auto rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col bg-dark border border-dark/10 group mt-6 md:mt-0">
       {styles.map((style, index) => (
         <div
           key={index}
-          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out bg-[#E9E4DB] ${index === current ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
+          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out bg-white ${index === current ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
         >
           <img
             src={style.image}
             alt={`Showcase Design ${index + 1}`}
-            className={`max-w-[120%] max-h-[120%] object-contain rotate-90 transition-all duration-1000 delay-100 opacity-90 ${index === current ? 'blur-none opacity-100 scale-100' : 'blur-md opacity-0 scale-110'}`}
+            className={`w-full h-full object-cover md:object-contain object-center transition-all duration-1000 delay-100 ${index === current ? 'blur-none opacity-100 scale-100' : 'blur-md opacity-0 scale-110'}`}
           />
         </div>
       ))}
@@ -471,7 +505,7 @@ const AdhesionShowcase = () => {
   ];
 
   return (
-    <div className="absolute top-6 right-6 bottom-6 w-1/2 rounded-[3rem] overflow-hidden hidden md:flex flex-col justify-center bg-gray-50 p-10 lg:p-14 border border-dark/5 shadow-inner">
+    <div className="relative md:absolute md:top-6 md:right-6 md:bottom-6 w-full md:w-1/2 h-72 md:h-auto rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col justify-center bg-gray-50 p-6 md:p-10 lg:p-14 border border-dark/5 shadow-inner mt-6 md:mt-0">
       <div className="flex flex-col gap-6">
         {options.map((opt) => {
           const isActive = activeTab === opt.id;
@@ -543,7 +577,7 @@ const IntegrationShowcase = () => {
   }, []);
 
   return (
-    <div className="absolute top-6 right-6 bottom-6 w-1/2 rounded-[3rem] overflow-hidden hidden md:flex items-center justify-center bg-gray-50 border border-dark/5" ref={containerRef}>
+    <div className="relative md:absolute md:top-6 md:right-6 md:bottom-6 w-full md:w-1/2 h-72 md:h-auto rounded-[2rem] md:rounded-[3rem] overflow-hidden flex items-center justify-center bg-gray-50 border border-dark/5 mt-6 md:mt-0" ref={containerRef}>
       <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none z-10"></div>
 
       <div className="relative w-48 h-64 flex flex-col items-center justify-center scale-[1.35] lg:scale-[1.6] origin-center translate-y-6">
@@ -584,11 +618,11 @@ const IntegrationShowcase = () => {
 const ArchiveCard = ({ step, title, desc, icon: Icon, image, isActive, isPast }) => {
   return (
     <div
-      className={`protocol-card sticky top-32 w-full max-w-6xl mx-auto h-[80vh] rounded-[4rem] p-16 lg:p-24 flex flex-col justify-between shadow-2xl transition-all duration-[800ms] overflow-hidden ${step === '01' ? 'border border-primary/5' : 'border border-primary/20'} ${isPast ? 'scale-[0.96] opacity-40 blur-sm bg-background/50' : 'scale-100 opacity-100 bg-background'
+      className={`protocol-card sticky top-24 md:top-32 w-full max-w-6xl mx-auto min-h-[65vh] md:h-[80vh] rounded-[2rem] md:rounded-[4rem] p-8 md:p-16 lg:p-24 flex flex-col justify-between shadow-2xl transition-all duration-[800ms] overflow-hidden ${step === '01' ? 'border border-primary/5' : 'border border-primary/20'} ${isPast ? 'scale-[0.96] opacity-40 blur-sm bg-background/50' : 'scale-100 opacity-100 bg-background'
         }`}
       style={{ zIndex: parseInt(step) }}
     >
-      <div className="flex justify-between items-start relative z-10 w-full md:w-1/2 pr-12">
+      <div className="flex justify-between items-start relative z-10 w-full md:w-1/2 md:pr-12">
         <div className="bg-gray-100 px-6 py-3 rounded-full font-mono text-sm font-semibold tracking-widest text-primary uppercase">
           Phase // {step}
         </div>
@@ -597,9 +631,9 @@ const ArchiveCard = ({ step, title, desc, icon: Icon, image, isActive, isPast })
         </div>
       </div>
 
-      <div className="max-w-xl relative z-10 w-full md:w-1/2 pr-12 mt-auto">
-        <h3 className="font-sans font-semibold text-5xl md:text-6xl text-primary mb-8 tracking-tight">{title}</h3>
-        <p className="text-2xl text-primary/60 leading-relaxed font-light">{desc}</p>
+      <div className="max-w-xl relative z-10 w-full md:w-1/2 md:pr-12 mt-auto">
+        <h3 className="font-sans font-semibold text-3xl md:text-5xl lg:text-6xl text-primary mb-4 md:mb-8 tracking-tight">{title}</h3>
+        <p className="text-lg md:text-2xl text-primary/60 leading-relaxed font-light">{desc}</p>
       </div>
 
       {/* Image Container / Showcase */}
@@ -720,7 +754,7 @@ const Action = () => {
   };
 
   return (
-    <section id="waitlist" className="py-48 lg:py-64 px-6 lg:px-12 bg-dark relative z-20 text-center overflow-hidden -mt-[15rem] rounded-t-[4rem]">
+    <section id="waitlist" className="py-24 md:py-48 lg:py-64 px-6 lg:px-12 bg-dark relative z-20 text-center overflow-hidden -mt-[15rem] rounded-t-[2rem] md:rounded-t-[4rem]">
       <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none"></div>
 
       <div className="max-w-5xl mx-auto relative z-30 pb-16">
@@ -731,11 +765,11 @@ const Action = () => {
             <span className="font-mono text-sm uppercase text-accent tracking-widest font-semibold">Early Access Waitlist</span>
           </div>
 
-          <h2 className="font-sans font-semibold text-5xl md:text-7xl lg:text-[6rem] text-background mb-10 tracking-tighter leading-none">
+          <h2 className="font-sans font-semibold text-3xl md:text-5xl lg:text-7xl xl:text-[6rem] text-background mb-8 md:mb-10 tracking-tighter leading-none">
             Experience Aesthetic <span className="font-light italic text-accent">Perfection.</span>
           </h2>
 
-          <p className="text-2xl text-background/60 mb-16 max-w-3xl mx-auto leading-relaxed font-light">
+          <p className="text-lg md:text-2xl text-background/60 mb-10 md:mb-16 max-w-3xl mx-auto leading-relaxed font-light">
             Join our exclusive launch cohort. Sign up today and receive an exclusive introductory discount on your first bespoke nail system.
           </p>
 
@@ -844,6 +878,7 @@ const Footer = () => {
               <li><a href="#features" className="hover:text-background transition-colors">The System</a></li>
               <li><a href="#philosophy" className="hover:text-background transition-colors">Philosophy</a></li>
               <li><a href="#protocol" className="hover:text-background transition-colors">Protocol</a></li>
+              <li><Link to="/prototype-01" className="hover:text-background transition-colors">Prototype 01</Link></li>
             </ul>
           </div>
 

@@ -102,25 +102,25 @@ const Prototype01 = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-48 pb-32 px-6 lg:px-12 max-w-6xl mx-auto">
+      <section className="relative z-10 pt-28 md:pt-48 pb-16 md:pb-32 px-6 lg:px-12 max-w-6xl mx-auto">
         <div className="inline-flex items-center gap-3 bg-accent/10 border border-accent/20 px-5 py-2.5 rounded-full mb-8 proto-elem">
           <Activity className="w-4 h-4 text-accent animate-pulse" />
           <span className="font-mono text-xs uppercase text-accent tracking-widest font-semibold">Active Research & Development</span>
         </div>
         
-        <h1 className="proto-elem font-sans font-bold text-5xl md:text-7xl lg:text-[6rem] tracking-tighter mb-6 leading-none">
+        <h1 className="proto-elem font-sans font-bold text-4xl md:text-7xl lg:text-[6rem] tracking-tighter mb-4 md:mb-6 leading-none">
           Prototype 01.
         </h1>
-        <p className="proto-elem text-2xl md:text-4xl font-light text-background/80 mb-8 max-w-4xl leading-tight tracking-tight">
+        <p className="proto-elem text-xl md:text-4xl font-light text-background/80 mb-6 md:mb-8 max-w-4xl leading-tight tracking-tight">
           A next-generation press-on nail system engineered to completely eliminate the need for mechanical abrasion and cuticle manipulation.
         </p>
-        <p className="proto-elem text-lg text-background/50 max-w-2xl leading-relaxed">
+        <p className="proto-elem text-base md:text-lg text-background/50 max-w-2xl leading-relaxed">
           By leveraging advanced biomimetic adhesion inspired by marine organisms and specific keratin-binding peptides, Prototype 01 shifts the paradigm away from physical damage toward intelligent molecular recognition.
         </p>
       </section>
 
       {/* Science & Biomimetics Grid */}
-      <section className="relative z-10 py-24 bg-background text-primary rounded-t-[4rem] px-6 lg:px-12">
+      <section className="relative z-10 py-16 md:py-24 bg-background text-primary rounded-t-[2rem] md:rounded-t-[4rem] px-6 lg:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20 md:text-center max-w-3xl mx-auto">
             <h2 className="font-sans font-bold text-4xl md:text-5xl tracking-tight mb-6">Biomimetic Architecture</h2>
@@ -131,7 +131,7 @@ const Prototype01 = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 phases-container">
             {/* Catechol Chemistry */}
-            <div className="phase-card bg-dark text-background rounded-[3rem] p-10 lg:p-14 border border-white/5 shadow-2xl">
+            <div className="phase-card bg-dark text-background rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14 border border-white/5 shadow-2xl">
               <div className="w-16 h-16 rounded-full bg-background/10 flex items-center justify-center mb-8">
                 <Droplets className="w-8 h-8 text-[#E0218A]" />
               </div>
@@ -142,7 +142,7 @@ const Prototype01 = () => {
             </div>
 
             {/* Keratin-Binding Peptides */}
-            <div className="phase-card bg-dark text-background rounded-[3rem] p-10 lg:p-14 border border-white/5 shadow-2xl">
+            <div className="phase-card bg-dark text-background rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14 border border-white/5 shadow-2xl">
               <div className="w-16 h-16 rounded-full bg-background/10 flex items-center justify-center mb-8">
                 <Dna className="w-8 h-8 text-[#E0218A]" />
               </div>
@@ -156,13 +156,13 @@ const Prototype01 = () => {
       </section>
 
       {/* Formulation Blueprint (3 Phases) */}
-      <section className="relative z-10 py-32 bg-dark text-background px-6 lg:px-12 border-t border-background/10">
+      <section className="relative z-10 py-16 md:py-32 bg-dark text-background px-6 lg:px-12 border-t border-background/10">
         <div className="max-w-5xl mx-auto">
           <h2 className="font-sans font-bold text-4xl md:text-5xl tracking-tight mb-16 md:text-center">The Formulation Blueprint</h2>
 
           <div className="space-y-8">
             {/* Phase 1 */}
-            <div className="flex flex-col md:flex-row gap-8 items-center md:items-start proto-elem bg-background/5 p-8 md:p-10 rounded-[2.5rem] border border-background/10">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start proto-elem bg-background/5 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-background/10">
               <div className="bg-accent text-background font-mono text-xl font-bold px-5 py-3 rounded-2xl shrink-0">01</div>
               <div className="flex-1">
                 <h3 className="text-2xl font-semibold mb-3">Non-Abrasive Prep System</h3>
@@ -210,7 +210,7 @@ const Prototype01 = () => {
             </div>
 
             {/* Phase 2 */}
-            <div className="flex flex-col md:flex-row gap-8 items-center md:items-start proto-elem bg-background/5 p-8 md:p-10 rounded-[2.5rem] border border-background/25">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start proto-elem bg-background/5 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-background/25">
               <div className="bg-accent text-background font-mono text-xl font-bold px-5 py-3 rounded-2xl shrink-0">02</div>
               <div className="flex-1">
                 <h3 className="text-2xl font-semibold mb-3">Bio-Adhesive Substrate Matrix</h3>
@@ -240,7 +240,7 @@ const Prototype01 = () => {
             </div>
 
             {/* Phase 3 */}
-            <div className="flex flex-col md:flex-row gap-8 items-center md:items-start proto-elem bg-background/5 p-8 md:p-10 rounded-[2.5rem] border border-background/25">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start proto-elem bg-background/5 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-background/25">
               <div className="bg-accent text-background font-mono text-xl font-bold px-5 py-3 rounded-2xl shrink-0">03</div>
               <div className="flex-1">
                 <h3 className="text-2xl font-semibold mb-3">Zero-Damage Removal Mechanics</h3>
