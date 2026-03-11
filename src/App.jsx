@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Fingerprint, Activity, Clock, ShieldCheck, Check, Zap, Menu, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +13,13 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
+  const { user, profile } = useAuth();
+
+  const getInitials = () => {
+    if (profile?.display_name) return profile.display_name.charAt(0).toUpperCase();
+    if (user?.email) return user.email.charAt(0).toUpperCase();
+    return '?';
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,11 +58,21 @@ const Navbar = () => {
           <Link to="/prototype-01" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Prototype 01</Link>
         </div>
 
-        {/* Sign Up — right side */}
-        <button onClick={() => navigate('/signup')} className={`btn-magnetic px-5 py-2 md:px-6 md:py-2.5 font-sans font-semibold text-xs md:text-sm rounded-full order-4 md:order-3 ${scrolled ? 'bg-accent text-background shadow-[0_0_20px_rgba(224,33,138,0.2)]' : 'bg-background text-primary'
-          }`}>
-          <span className="relative z-10">Sign Up</span>
-        </button>
+        {/* Auth CTA / Avatar — right side */}
+        {user ? (
+          <button onClick={() => navigate('/profile')} className={`w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden flex items-center justify-center font-sans font-bold text-lg order-4 md:order-3 transition-transform hover:scale-105 border ${scrolled ? 'bg-accent text-background border-accent shadow-[0_0_15px_rgba(224,33,138,0.3)]' : 'bg-background text-primary border-primary/20'}`}>
+            {profile?.avatar_url ? (
+              <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+              <span>{getInitials()}</span>
+            )}
+          </button>
+        ) : (
+          <button onClick={() => navigate('/signup')} className={`btn-magnetic px-5 py-2 md:px-6 md:py-2.5 font-sans font-semibold text-xs md:text-sm rounded-full order-4 md:order-3 ${scrolled ? 'bg-accent text-background shadow-[0_0_20px_rgba(224,33,138,0.2)]' : 'bg-background text-primary'
+            }`}>
+            <span className="relative z-10">Sign Up</span>
+          </button>
+        )}
       </nav>
 
       {/* Mobile Menu Overlay */}
