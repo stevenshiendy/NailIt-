@@ -176,7 +176,7 @@ const ShufflerCard = () => {
         <p className="text-primary/60 font-sans text-lg leading-relaxed">Innovative glue options that let you adjust the hold based on your schedule.</p>
       </div>
 
-      <div className="relative h-56 mt-auto flex items-end justify-center perspective-[1000px]">
+      <div className="relative h-56 mt-8 md:mt-auto flex items-end justify-center perspective-[1000px]">
         {cards.map((card, index) => {
           const isTop = index === 0;
           return (
