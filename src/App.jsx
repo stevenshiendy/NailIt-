@@ -30,18 +30,10 @@ const Navbar = () => {
           : 'bg-background/10 backdrop-blur-md border-white/10 text-background'
           }`}
       >
-        <div className="font-sans font-bold tracking-tight text-xl">Nail It!</div>
-        <div className="hidden md:flex items-center gap-12 font-sans text-sm tracking-wide">
-          <a href="#features" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>System</a>
-          <a href="#philosophy" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Philosophy</a>
-          <a href="#protocol" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Protocol</a>
-          <Link to="/prototype-01" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Prototype 01</Link>
-        </div>
-
-        {/* Mobile Hamburger — center */}
+        {/* Mobile Hamburger — left */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-1 order-2"
+          className="md:hidden p-1 order-1"
           aria-label="Toggle menu"
         >
           {mobileOpen
@@ -50,8 +42,16 @@ const Navbar = () => {
           }
         </button>
 
-        {/* Sign Up — always visible, right side */}
-        <button onClick={() => navigate('/signup')} className={`btn-magnetic px-5 py-2 md:px-6 md:py-2.5 font-sans font-semibold text-xs md:text-sm rounded-full order-3 ${scrolled ? 'bg-accent text-background shadow-[0_0_20px_rgba(224,33,138,0.2)]' : 'bg-background text-primary'
+        <div className="font-sans font-bold tracking-tight text-xl order-2 md:order-1 flex-1 md:flex-none text-center md:text-left">Nail It!</div>
+        <div className="hidden md:flex items-center gap-12 font-sans text-sm tracking-wide order-3 md:order-2">
+          <a href="#features" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>System</a>
+          <a href="#philosophy" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Philosophy</a>
+          <a href="#protocol" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Protocol</a>
+          <Link to="/prototype-01" className={`hover:text-accent transition-colors interactive ${scrolled ? 'text-primary/70' : 'text-background/90'}`}>Prototype 01</Link>
+        </div>
+
+        {/* Sign Up — right side */}
+        <button onClick={() => navigate('/signup')} className={`btn-magnetic px-5 py-2 md:px-6 md:py-2.5 font-sans font-semibold text-xs md:text-sm rounded-full order-4 md:order-3 ${scrolled ? 'bg-accent text-background shadow-[0_0_20px_rgba(224,33,138,0.2)]' : 'bg-background text-primary'
           }`}>
           <span className="relative z-10">Sign Up</span>
         </button>
@@ -505,8 +505,33 @@ const AdhesionShowcase = () => {
   ];
 
   return (
-    <div className="relative md:absolute md:top-6 md:right-6 md:bottom-6 w-full md:w-1/2 h-72 md:h-auto rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col justify-center bg-gray-50 p-6 md:p-10 lg:p-14 border border-dark/5 shadow-inner mt-6 md:mt-0">
-      <div className="flex flex-col gap-6">
+    <div className="relative md:absolute md:top-6 md:right-6 md:bottom-6 w-full md:w-1/2 h-auto md:h-auto rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col justify-center bg-gray-50 p-4 md:p-10 lg:p-14 border border-dark/5 shadow-inner mt-6 md:mt-0">
+      {/* Mobile: horizontal 3-column grid */}
+      <div className="grid grid-cols-3 gap-3 md:hidden">
+        {options.map((opt) => {
+          const isActive = activeTab === opt.id;
+          return (
+            <div
+              key={opt.id}
+              onClick={() => setActiveTab(opt.id)}
+              className={`p-3 rounded-2xl cursor-pointer transition-all duration-500 border text-center ${isActive ? 'bg-dark border-dark shadow-lg scale-100 opacity-100' : 'bg-transparent border-dark/10 scale-[0.97] opacity-50'}`}
+            >
+              <div className={`w-2.5 h-2.5 rounded-full mx-auto mb-2 ${isActive ? 'bg-background animate-pulse' : opt.dot}`}></div>
+              <h4 className={`font-sans font-semibold text-sm mb-1 ${isActive ? 'text-background' : 'text-dark'}`}>{opt.name}</h4>
+              <span className={`font-mono text-[10px] font-medium ${isActive ? 'text-background/50' : 'text-dark/40'}`}>{opt.duration}</span>
+              <div className={`h-1.5 w-full rounded-full overflow-hidden mt-2 ${isActive ? 'bg-background/20' : 'bg-dark/10'}`}>
+                <div
+                  className={`h-full rounded-full transition-all duration-1000 ease-out ${isActive ? 'bg-background' : 'bg-dark/20'}`}
+                  style={{ width: isActive ? opt.level : '0%' }}
+                ></div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Desktop: vertical stacked cards */}
+      <div className="hidden md:flex flex-col gap-6">
         {options.map((opt) => {
           const isActive = activeTab === opt.id;
           return (
@@ -577,10 +602,10 @@ const IntegrationShowcase = () => {
   }, []);
 
   return (
-    <div className="relative md:absolute md:top-6 md:right-6 md:bottom-6 w-full md:w-1/2 h-72 md:h-auto rounded-[2rem] md:rounded-[3rem] overflow-hidden flex items-center justify-center bg-gray-50 border border-dark/5 mt-6 md:mt-0" ref={containerRef}>
+    <div className="relative md:absolute md:top-6 md:right-6 md:bottom-6 w-full md:w-1/2 h-48 md:h-auto rounded-[2rem] md:rounded-[3rem] overflow-hidden flex items-center justify-center bg-gray-50 border border-dark/5 mt-6 md:mt-0" ref={containerRef}>
       <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none z-10"></div>
 
-      <div className="relative w-48 h-64 flex flex-col items-center justify-center scale-[1.35] lg:scale-[1.6] origin-center translate-y-6">
+      <div className="relative w-48 h-64 flex flex-col items-center justify-center scale-[0.85] md:scale-[1.35] lg:scale-[1.6] origin-center translate-y-6">
         {/* Finger Base */}
         <div className="w-24 h-48 bg-gray-200 rounded-t-[3rem] shadow-inner relative border border-dark/10">
           {/* Natural Nail Bed */}
@@ -700,8 +725,8 @@ const Protocol = () => {
   ];
 
   return (
-    <section id="protocol" ref={containerRef} className="py-48 lg:py-64 px-6 lg:px-12 bg-gray-50 relative pb-[30rem]">
-      <div className="max-w-7xl mx-auto mb-32 md:text-center">
+    <section id="protocol" ref={containerRef} className="py-20 md:py-48 lg:py-64 px-6 lg:px-12 bg-gray-50 relative pb-[30rem]">
+      <div className="max-w-7xl mx-auto mb-16 md:mb-32 md:text-center">
         <h2 className="font-sans font-semibold text-5xl md:text-7xl text-primary mb-8 tracking-tight">
           The <span className="font-light italic text-accent tracking-widest">Integration</span> Process.
         </h2>
@@ -781,7 +806,7 @@ const Action = () => {
                   placeholder="Full Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-background/5 border border-background/20 rounded-2xl px-8 py-5 text-xl text-background placeholder:text-background/40 focus:outline-none focus:border-accent transition-colors font-sans"
+                  className="w-full bg-background/5 border border-background/20 rounded-xl md:rounded-2xl px-5 md:px-8 py-3 md:py-5 text-base md:text-xl text-background placeholder:text-background/40 focus:outline-none focus:border-accent transition-colors font-sans"
                   required
                 />
               </div>
@@ -792,7 +817,7 @@ const Action = () => {
                   placeholder="Email Address"
                   value={formData.email}
                   onChange={(e) => { setFormData({ ...formData, email: e.target.value }); if (errors.email) setErrors({ ...errors, email: null }) }}
-                  className={`w-full bg-background/5 border rounded-2xl px-8 py-5 text-xl text-background placeholder:text-background/40 focus:outline-none transition-colors font-sans ${errors.email ? 'border-red-500/50 focus:border-red-500' : 'border-background/20 focus:border-accent'}`}
+                  className={`w-full bg-background/5 border rounded-xl md:rounded-2xl px-5 md:px-8 py-3 md:py-5 text-base md:text-xl text-background placeholder:text-background/40 focus:outline-none transition-colors font-sans ${errors.email ? 'border-red-500/50 focus:border-red-500' : 'border-background/20 focus:border-accent'}`}
                   required
                 />
                 {errors.email && <p className="text-red-400 text-sm mt-2 ml-4 font-sans">{errors.email}</p>}
@@ -803,7 +828,7 @@ const Action = () => {
                   <select
                     value={formData.countryCode}
                     onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                    className="bg-background/5 border border-background/20 rounded-2xl px-4 py-5 text-xl text-background focus:outline-none focus:border-accent transition-colors font-sans w-28 appearance-none cursor-pointer"
+                    className="bg-background/5 border border-background/20 rounded-xl md:rounded-2xl px-3 md:px-4 py-3 md:py-5 text-base md:text-xl text-background focus:outline-none focus:border-accent transition-colors font-sans w-24 md:w-28 appearance-none cursor-pointer"
                     style={{ backgroundImage: 'none' }}
                   >
                     <option value="+62" className="text-dark">🇮🇩 +62</option>
@@ -823,13 +848,13 @@ const Action = () => {
                     placeholder="Phone Number (Optional)"
                     value={formData.phone}
                     onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); if (errors.phone) setErrors({ ...errors, phone: null }) }}
-                    className={`w-full bg-background/5 border rounded-2xl px-8 py-5 text-xl text-background placeholder:text-background/40 focus:outline-none transition-colors font-sans flex-1 ${errors.phone ? 'border-red-500/50 focus:border-red-500' : 'border-background/20 focus:border-accent'}`}
+                    className={`w-full bg-background/5 border rounded-xl md:rounded-2xl px-5 md:px-8 py-3 md:py-5 text-base md:text-xl text-background placeholder:text-background/40 focus:outline-none transition-colors font-sans flex-1 ${errors.phone ? 'border-red-500/50 focus:border-red-500' : 'border-background/20 focus:border-accent'}`}
                   />
                 </div>
                 {errors.phone && <p className="text-red-400 text-sm mt-2 ml-4 font-sans">{errors.phone}</p>}
               </div>
               
-              <button type="submit" className="w-full btn-magnetic bg-accent text-background rounded-2xl px-8 py-6 font-semibold text-xl mt-4 font-sans group shadow-[0_0_40px_rgba(224,33,138,0.2)]">
+              <button type="submit" className="w-full btn-magnetic bg-accent text-background rounded-xl md:rounded-2xl px-6 md:px-8 py-4 md:py-6 font-semibold text-base md:text-xl mt-3 md:mt-4 font-sans group shadow-[0_0_40px_rgba(224,33,138,0.2)]">
                 <span className="relative z-10 flex items-center justify-center gap-3 hover:text-white">
                   Join the Waitlist
                   <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
