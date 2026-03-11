@@ -352,7 +352,7 @@ const Features = () => {
   }, []);
 
   return (
-    <section id="features" ref={containerRef} className="py-48 lg:py-64 px-6 lg:px-12 bg-background min-h-screen flex items-center">
+    <section id="features" ref={containerRef} className="py-20 md:py-48 lg:py-64 px-6 lg:px-12 bg-background min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto w-full">
         <div className="max-w-3xl mb-32 md:text-center mx-auto">
           <h2 className="font-sans font-semibold tracking-tighter text-5xl md:text-7xl text-primary mb-8">
@@ -410,7 +410,7 @@ const Philosophy = () => {
   }, []);
 
   return (
-    <section ref={compRef} id="philosophy" className="relative py-48 lg:py-64 overflow-hidden bg-dark text-background">
+    <section ref={compRef} id="philosophy" className="relative pt-12 pb-24 md:py-48 lg:py-64 overflow-hidden bg-dark text-background">
       {/* Subtle organic texture in background */}
       <div className="absolute inset-0 opacity-10 overflow-hidden pointer-events-none">
         <img
@@ -422,7 +422,7 @@ const Philosophy = () => {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center">
-        <div className="w-20 h-[2px] bg-background mb-16 opacity-30 reveal-text"></div>
+        <div className="w-20 h-[2px] bg-background mb-8 md:mb-16 opacity-30 reveal-text"></div>
         <p className="font-sans text-2xl md:text-3xl text-background/60 mb-12 max-w-2xl mx-auto reveal-text leading-relaxed font-light tracking-tight">
           Most press-on nails focus on: <span className="text-background font-medium">temporary aesthetics with damaging adhesives.</span>
         </p>
